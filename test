@@ -1,0 +1,21 @@
+import maya.cmds as mc
+import maya.mel as mel
+
+sel_edge = mc.ls(sl = 1, fl = 1)
+for item in sel_edge:
+    grp = mc.group(n = "cv_grp_01", em = 1)
+    mc.select(item)
+    mc.SelectEdgeRingSp()
+    edge_grp = mc.ls(sl = 1, fl = 1)
+    for each in edge_grp:
+        mc.select(each)
+        mc.SelectEdgeLoopSp()
+        mc.polyToCurve(form = 2, degree = 3)
+        cv = mc.ls(sl = 1, fl = 1)[0]
+        mc.parent(cv, grp)
+        
+        
+ =============================
+ 
+ geo = ms.ls(sl=1, fl = 1)[0]
+ mel.eval('pgYetiConvertGuideSetToGroom( "cv_grp_01_set", "BodyEsterShape", "0.2")')
